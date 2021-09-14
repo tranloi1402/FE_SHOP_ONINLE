@@ -1,21 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import FileBase64 from 'react-file-base64';
 
 import '../../../../assets/styles/_class.scss';
 
-const FormEditPrd = ({ data, categorys }) => (
+const FormEditPrd = ({ data, categorys, setData, onSubmitUpdate }) => (
     <div className='h-full ml-14 mt-14 mb-10 md:ml-64'>
         <div>
             <h2 className='ml-6 mt-4 text-xl font-semibold text-gray-500'>Chỉnh sửa thông tin sản phẩm</h2>
         </div>
         <div className='m-10 p-2 bg-white border rounded-xl shadow-2xl z-10'>
-            <form action=''>
+            <form onSubmit={() => onSubmitUpdate()}>
                 <div className='grid sm:grid-cols-1 lg:grid-cols-2 px-5 gap-3'>
                     <div className='py-1 my-2'>
                         {/* eslint jsx-a11y/label-has-associated-control: ["error", { assert: "either" } ]  */}
                         <label className='text-lg font-medium text-gray-500'>
                             Tên sản phẩm:
                             <input
+                                onChange={(e) => setData({ ...data, name: e.target.value })}
                                 type='text'
                                 name='name'
                                 className='border w-80 mx-2 focus:outline-none rounded-md px-3 py-1'
@@ -27,16 +29,13 @@ const FormEditPrd = ({ data, categorys }) => (
                         <label className='text-lg font-medium text-gray-500'>
                             Thể loại:
                             <select
+                                onChange={(e) => setData({ ...data, categoryID: e.target.value })}
+                                value={data.categoryID}
                                 name='categoryID'
                                 id='categoryID'
                                 className='border w-80 mx-2 focus:outline-none rounded-md px-3 py-1'
                             >
-                                {/* {
-                                    categorys.find(
-                                        (data.categoryID === categorys._id)
-                                            ? <option value={categorys._id}>{categorys.name}</option> : <option>----  Chọn trạng thái  ----</option>
-                                    )
-                                } */}
+                                <option>---- Chọn thể loại ---- </option>
                                 {
                                     categorys.map(
                                         (cate, index) => <option key={index} value={cate._id}>{cate.name}</option>
@@ -49,6 +48,7 @@ const FormEditPrd = ({ data, categorys }) => (
                         <label className='text-lg font-medium text-gray-500'>
                             Mô tả:
                             <textarea
+                                onChange={(e) => setData({ ...data, description: e.target.value })}
                                 type='text'
                                 name='description'
                                 className='border w-80 mx-2 focus:outline-none rounded-md px-3 py-1'
@@ -59,16 +59,18 @@ const FormEditPrd = ({ data, categorys }) => (
                     <div className='py-1 my-2'>
                         <label className='text-lg font-medium text-gray-500'>
                             Trạng thái:
-                            <select name='status' id='status' className='border w-80 mx-2 focus:outline-none rounded-md px-3 py-1'>
-                                {/* {
-                                    data.status
-                                        ? <option value={data.status}>{data.status}</option>
-                                        : <option>----  Chọn trạng thái  ----</option>
-                                } */}
+                            <select
+                                onChange={(e) => setData({ ...data, status: e.target.value })}
+                                value={data.status}
+                                name='status'
+                                id='status'
+                                className='border w-80 mx-2 focus:outline-none rounded-md px-3 py-1'
+                            >
                                 <option>----  Chọn trạng thái  ----</option>
-                                <option value='Đang bán'>Đang bán</option>
-                                <option value='Bán chạy'>Bán chạy</option>
-                                <option value='Dừng bán'>Dừng bán</option>
+                                <option value='1'>Sản phẩm mới</option>
+                                <option value='2'>Đang bán</option>
+                                <option value='3'>Bán chạy</option>
+                                <option value='4'>Dừng bán</option>
                             </select>
                         </label>
                     </div>
@@ -76,6 +78,7 @@ const FormEditPrd = ({ data, categorys }) => (
                         <label className='text-lg font-medium text-gray-500'>
                             Giá:
                             <input
+                                onChange={(e) => setData({ ...data, price: e.target.value })}
                                 type='text'
                                 name='price'
                                 className='border w-80 mx-2 focus:outline-none rounded-md px-3 py-1'
@@ -84,11 +87,17 @@ const FormEditPrd = ({ data, categorys }) => (
                         </label>
                     </div>
                     <div className='py-1 my-2'>
-                        <label className='text-lg font-medium text-gray-500'>
+                        <div className='text-lg font-medium text-gray-500'>
                             Ảnh sản phẩm:
-                            <input type='file' name='image' accept='.png, .jpg, .jpeg' />
-                            <img src={data.image} alt='ảnh sản phẩm' />
-                        </label>
+                        </div>
+                        <FileBase64
+                            onDone={({ base64 }) => setData({ ...data, image: base64 })}
+                            type='file'
+                            name='image'
+                            multiple={false}
+                            accept='image/*'
+                        />
+                        <img src={data.image} alt='ảnh sản phẩm' />
                     </div>
                 </div>
                 <button type='submit' className='cursor-pointer py-2 px-4 block mx-6 my-3 text-white font-bold text-center rounded add'>Cập nhập</button>
@@ -99,12 +108,16 @@ const FormEditPrd = ({ data, categorys }) => (
 
 FormEditPrd.propTypes = {
     data: PropTypes.object,
-    categorys: PropTypes.object
+    categorys: PropTypes.object,
+    setData: PropTypes.func,
+    onSubmitUpdate: PropTypes.func
 };
 
 FormEditPrd.defaultProps = {
     data: {},
-    categorys: {}
+    categorys: {},
+    setData: null,
+    onSubmitUpdate: null
 };
 
 export default FormEditPrd;

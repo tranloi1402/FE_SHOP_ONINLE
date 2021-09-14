@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import Header from '../../../components/Dashboard/header';
 import Sliderbar from '../../../components/Dashboard/Sliderbar';
@@ -19,6 +20,14 @@ const Index = () => {
     useEffect(() => {
         dispatch(categoryActions.getAllCate());
     }, [dispatch]);
+
+    const history = useHistory();
+    useEffect(() => {
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+            history.replace('/login');
+        }
+    }, [history]);
 
     return (
         <div className='Dashboard bg-dashboard'>

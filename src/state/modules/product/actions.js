@@ -35,9 +35,9 @@ export const actions = {
 };
 
 //= =============== SAGAS ===============//
-function* fecthAllProduct() {
+function* fecthAllProduct(action) {
     try {
-        const response = yield call(Api.getAllProduct);
+        const response = yield call(Api.getAllProduct, action.payload);
         yield put(storeProduct(response.data));
     } catch (error) {
         yield put(fail());
@@ -69,6 +69,16 @@ function* postEditProduct(action) {
     }
 }
 
+function* postUpdateProduct(action) {
+    try {
+        const res = yield call(Api.postUpdateProduct, action.payload);
+        console.log(res);
+        yield put(success());
+    } catch (error) {
+        yield put(fail());
+    }
+}
+
 function* postDeleteProduct(action) {
     try {
         const res = yield call(Api.postDeleteProduct, action.payload);
@@ -83,5 +93,6 @@ export function* sagas() {
     yield takeEvery(types.GET_ALL_PRODUCT, fecthAllProduct);
     yield takeEvery(types.POST_CREATE_PRODUCT, fecthCreateProduct);
     yield takeEvery(types.POST_EDIT_PRODUCT, postEditProduct);
+    yield takeEvery(types.POST_UPDATE_PRODUCT, postUpdateProduct);
     yield takeEvery(types.POST_DELETE_PRODUCT, postDeleteProduct);
 }

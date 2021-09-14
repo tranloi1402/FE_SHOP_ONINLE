@@ -41,7 +41,7 @@ const FormCreatPrd = () => {
                 <h2 className='ml-6 mt-4 text-xl font-semibold text-gray-500'>Thêm mới sản phẩm</h2>
             </div>
             <div className='m-10 p-2 bg-white border rounded-xl shadow-2xl z-10'>
-                <form>
+                <form onSubmit={() => onSubmit()}>
                     <div className='grid sm:grid-cols-1 lg:grid-cols-2 px-5 gap-3'>
                         <div className='py-1 my-2'>
                             {/* eslint jsx-a11y/label-has-associated-control: ["error", { assert: "either" } ]  */}
@@ -96,9 +96,10 @@ const FormCreatPrd = () => {
                                     className='border w-80 mx-2 focus:outline-none rounded-md px-3 py-1'
                                 >
                                     <option>----  Chọn trạng thái  ----</option>
-                                    <option value='Đang bán'>Đang bán</option>
-                                    <option value='Bán chạy'>Bán chạy</option>
-                                    <option value='Dừng bán'>Dừng bán</option>
+                                    <option value='1'>Sản phẩm mới</option>
+                                    <option value='2'>Đang bán</option>
+                                    <option value='3'>Bán chạy</option>
+                                    {/* <option value='4'>Dừng bán</option> */}
                                 </select>
                             </label>
                         </div>
@@ -134,8 +135,7 @@ const FormCreatPrd = () => {
                         </div>
                     </div>
                     <button
-                        type='button'
-                        onClick={() => onSubmit()}
+                        type='submit'
                         className='cursor-pointer py-2 px-4 block mx-6 my-3 text-white font-bold text-center rounded add'
                     >
                         Thêm mới

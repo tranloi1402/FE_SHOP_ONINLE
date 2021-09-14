@@ -7,6 +7,8 @@ import * as Api from '../../../apis/API';
 //= ============== ACTIONS ===============//
 const getAllOrders = createAction(types.GET_ALL_ORDER);
 
+const creatOrderByUse = createAction(types.CREAT_ORDER_BY_USE);
+
 const editOrder = createAction(types.EDIT_ORDER_ID);
 const storeEdit = createAction(types.STORE_EDIT);
 
@@ -18,6 +20,7 @@ const fail = createAction(types.FAIL);
 
 export const actions = {
     getAllOrders,
+    creatOrderByUse,
     editOrder,
     updateOrder
 };
@@ -27,6 +30,16 @@ function* getOrders() {
     try {
         const response = yield call(Api.getAllOrder);
         yield put(storeOrder(response.data));
+        yield put(success());
+    } catch (error) {
+        yield put(fail());
+    }
+}
+
+function* postCreateOrder(action) {
+    try {
+        const response = yield call(Api.postCreateOrder, action.payload);
+        console.log('[[postCreateOrder data response]]', response);
         yield put(success());
     } catch (error) {
         yield put(fail());
@@ -56,6 +69,7 @@ function* postUpdateOrder(action) {
 
 export function* sagas() {
     yield takeEvery(types.GET_ALL_ORDER, getOrders);
+    yield takeEvery(types.CREAT_ORDER_BY_USE, postCreateOrder);
     yield takeEvery(types.EDIT_ORDER_ID, getEditOrder);
     yield takeEvery(types.UPDATE_ORDER, postUpdateOrder);
 }

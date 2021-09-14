@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Content = () => (
     <div className='h-full mt-14 mb-10 md:ml-64'>
-        <div className='grid grid-cols-2 sm:grid-cols-3 p-4 gap-4 top-14'>
+        <div className='grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 p-4 gap-4 top-14'>
             <Link to='/dashboard/products'>
                 <div className='rounded-lg shadow-2xl flex py-5 px-4'>
                     <div className='my-auto'>

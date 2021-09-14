@@ -1,11 +1,10 @@
 import Loadable from '../utils/Loadable';
 
 const HomePage = Loadable(() => import(/* webpackChunkName: "js/home" */ '@Views/pages/Home'));
-const Cart = Loadable(() => import(/* webpackChunkName: "js/home" */ '@Views/pages/Home/Cart'));
+const Cart = Loadable(() => import(/* webpackChunkName: "js/home" */ '@Views/pages/Home/Cart/index'));
+const CartDeltai = Loadable(() => import(/* webpackChunkName: "js/home" */ '@Views/pages/Home/Cart/cartDeltai'));
 const Details = Loadable(() => import(/* webpackChunkName: "js/home" */ '@Views/pages/Home/Product/deltaiProduct'));
-const Login = Loadable(() => import(/* webpackChunkName: "js/home" */ '@Views/pages/Dashboard/Login/login'));
-
-const DashboardPage = Loadable(() => import(/* webpackChunkName: "js/home" */ '@Views/pages/Dashboard/Layout'));
+const ProductCate = Loadable(() => import(/* webpackChunkName: "js/home" */ '@Views/pages/Home/Product/productCate'));
 
 const DashboardProducts = Loadable(
     () => import(/* webpackChunkName: "js/home" */ '@Views/pages/Dashboard/Products/index')
@@ -27,7 +26,6 @@ const DashboardCategory = Loadable(
 const DashboardCategoryDelete = Loadable(
     () => import(/* webpackChunkName: "js/home" */ '@Views/pages/Dashboard/Category/deleteCategory')
 );
-
 const DashboardCreatCate = Loadable(
     () => import(/* webpackChunkName: "js/home" */ '@Views/pages/Dashboard/Category/creatCategory')
 );
@@ -48,12 +46,12 @@ const routers = [
         component: HomePage
     },
     {
-        path: '/trang-chu',
+        path: '/search/:keyword',
         component: HomePage
     },
     {
-        path: '/cart/:id',
-        component: Cart
+        path: '/cartDeltais/:id',
+        component: CartDeltai
     },
     {
         path: '/cart',
@@ -64,12 +62,8 @@ const routers = [
         component: Details
     },
     {
-        path: '/login',
-        component: Login
-    },
-    {
-        path: '/dashboard',
-        component: DashboardPage
+        path: '/product/category/:id',
+        component: ProductCate
     },
     {
         path: '/dashboard/products',

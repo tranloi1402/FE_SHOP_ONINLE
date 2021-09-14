@@ -7,9 +7,9 @@ import '../../../assets/styles/_class.scss';
 const Sliderbar = ({ isCheck }) => (
     <div
         className={
-            isCheck
-                ? 'fixed flex-col top-14 bg-navigation2 h-full text-white transition-all duration-300 border-none z-10 hover:w-64 w-64 md:flex hidden'
-                : 'fixed flex-col top-14 bg-navigation2 h-full text-white transition-all duration-300 border-none hidden z-10 hover:w-64 w-64 md:flex'
+            isCheck === true
+                ? 'fixed flex-col top-14 bg-navigation2 h-full text-white transition-all duration-300 border-none z-10 hover:w-64 w-64 md:flex block'
+                : 'fixed flex-col top-14 bg-navigation2 h-full text-white transition-all duration-300 border-none z-10 hover:w-64 w-64 md:flex hidden'
         }
     >
         <div className='pl-4 py-2 block'>

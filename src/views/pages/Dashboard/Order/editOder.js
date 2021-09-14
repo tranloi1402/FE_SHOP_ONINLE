@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { orderActions, orderSelectors } from '../../../../state/modules/order';
@@ -21,8 +21,13 @@ const EditOder = () => {
         dispatch(orderActions.updateOrder(data));
     };
 
-    const notification = useSelector(orderSelectors.notyfine);
-    console.log(notification);
+    const history = useHistory();
+    useEffect(() => {
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+            history.replace('/login');
+        }
+    }, [history]);
 
     return (
         <div className='Dashboard bg-dashboard'>
@@ -32,7 +37,6 @@ const EditOder = () => {
                 <FormEditOrder
                     order={order}
                     onSubmitUpdate={onSubmitUpdate}
-                    notification={notification}
                 />
             </div>
         </div>

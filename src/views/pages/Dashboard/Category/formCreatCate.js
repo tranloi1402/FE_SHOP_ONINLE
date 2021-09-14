@@ -67,7 +67,7 @@ const FormCreatCate = () => {
                                 >
                                     <option>---- Chọn trạng thái ---- </option>
                                     <option value='1'>Hoạt động</option>
-                                    <option value='2'>Dừng bán</option>
+                                    {/* <option value='2'>Dừng bán</option> */}
                                 </select>
                             </label>
                         </div>

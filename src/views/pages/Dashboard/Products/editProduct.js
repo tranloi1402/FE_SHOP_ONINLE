@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import { productActions, productSelectors } from '../../../../state/modules/product';
 import { categoryActions, categorySelectors } from '../../../../state/modules/category';
@@ -21,7 +21,7 @@ const EditProduct = () => {
         price: '',
         categoryID: ''
     });
-
+    console.log(data);
     useEffect(() => {
         setData(productEdit);
     }, [productEdit]);
@@ -35,12 +35,29 @@ const EditProduct = () => {
         dispatch(categoryActions.getAllCate());
     }, [dispatch]);
 
+    const onSubmitUpdate = () => {
+        dispatch(productActions.updateProduct(data));
+    };
+
+    const history = useHistory();
+    useEffect(() => {
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+            history.replace('/login');
+        }
+    }, [history]);
+
     return (
         <div className='Dashboard bg-dashboard'>
             <div className='min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white dark:bg-gray-700 text-black dark:text-white'>
                 <Header />
                 <Sliderbar />
-                <FormEditPrd data={data} categorys={categorys} />
+                <FormEditPrd
+                    data={data}
+                    setData={setData}
+                    categorys={categorys}
+                    onSubmitUpdate={onSubmitUpdate}
+                />
             </div>
         </div>
     );

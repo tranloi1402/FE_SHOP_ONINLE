@@ -25,7 +25,7 @@ const Product = ({ product, addToCart }) => (
                 <div
                     onClick={
                         () => addToCart(
-                            { _id: product._id, name: product.name, image: product.image, price: product.price, qty: 1 }
+                            { _id: product._id, name: product.name, image: product.image, price: product.price, quantity: 1 }
                         )
                     }
                     className='

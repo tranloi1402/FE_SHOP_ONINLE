@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const Product = ({ product }) => (
     <tr className='border-b border-gray-200 hover:bg-gray-100'>
         <td className='py-3 px-6 text-left whitespace-nowrap'>
-            <div className='flex items-center'>
+            <div className='flex items-center text-lg'>
                 <div className='mr-3'>
                     <img
                         src={`${product.image}`}
@@ -17,14 +17,31 @@ const Product = ({ product }) => (
             </div>
         </td>
         <td className='py-3 px-6 text-left'>
-            <div className='flex items-center'>
+            <div className='flex items-center text-md font-medium'>
                 <span>{`${product.price} VNĐ`}</span>
             </div>
         </td>
         <td className='py-3 px-6 text-center'>
-            <span className='bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs'>
-                {product.status}
-            </span>
+            {
+                product.status === 1
+                    ? <span className='bg-green-500 text-white py-2 px-4 rounded-full text-md font-medium'>Sản phẩm mới</span>
+                    : ''
+            }
+            {
+                product.status === 2
+                    ? <span className='bg-purple-300 text-purple-600 py-2 px-4 rounded-full text-md font-medium'>Sản phẩm đang bán</span>
+                    : ''
+            }
+            {
+                product.status === 3
+                    ? <span className='bg-yellow-500 text-white py-2 px-4 rounded-full text-md font-medium'>Sản phẩm bán chạy</span>
+                    : ''
+            }
+            {
+                product.status === 4
+                    ? <span className='bg-red-500 text-white py-2 px-4 rounded-full text-md font-medium'>Dừng bán</span>
+                    : ''
+            }
         </td>
         <td className='py-3 px-6 text-center'>
             <div className='flex item-center justify-center'>

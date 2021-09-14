@@ -4,20 +4,13 @@ import PropTypes from 'prop-types';
 import InfProducts from './infProducts';
 import '../../../../assets/styles/_class.scss';
 
-const FormEditOrder = ({ order, onSubmitUpdate, notification }) => {
+const FormEditOrder = ({ order, onSubmitUpdate }) => {
     const listproducts = order.product;
-    console.log(listproducts);
+    // console.log(listproducts);
     const [data, setData] = useState();
 
     return (
         <div className='h-full ml-14 mt-14 mb-10 md:ml-64'>
-            <div className="flex flex-row">
-                <div className="bg-white rounded-lg border-gray-300 border p-3 shadow-lg my-5">
-                    <span className="font-semibold">
-                        {notification}
-                    </span>
-                </div>
-            </div>
             <div>
                 <h2 className='ml-6 mt-4 text-xl font-semibold text-gray-500'>Sửa thông tin danh mục sản phẩm</h2>
             </div>
@@ -69,17 +62,17 @@ const FormEditOrder = ({ order, onSubmitUpdate, notification }) => {
                                 >
                                     {
                                         order.status === 1
-                                            ? <option className="text-green-500 font-bold" value={order.status}>Chờ duyệt</option>
+                                            ? <option className='text-green-500 font-bold' value={order.status}>Chờ duyệt</option>
                                             : ''
                                     }
                                     {
                                         order.status === 2
-                                            ? <option className="text-green-500 font-bold" value={order.status}>Giao hàng</option>
+                                            ? <option className='text-green-500 font-bold' value={order.status}>Giao hàng</option>
                                             : ''
                                     }
                                     {
                                         order.status === 3
-                                            ? <option className="text-green-500 font-bold" value={order.status}>Hoàn thành</option>
+                                            ? <option className='text-green-500 font-bold' value={order.status}>Hoàn thành</option>
                                             : ''
                                     }
                                     <option value='0'> --- Chọn trạng thái --- </option>
@@ -101,8 +94,8 @@ const FormEditOrder = ({ order, onSubmitUpdate, notification }) => {
                 <h2 className='p-5 text-xl font-semibold text-gray-500'>Thông tin sản phẩm khách hàng đặt</h2>
                 <table className='min-w-max w-full table-auto'>
                     <thead>
-                        <tr className='bg-gray-200 text-gray-600 uppercase text-sm leading-normal'>
-                            <th className='py-3 px-6 text-left'>Tên</th>
+                        <tr className='bg-gray-200 text-gray-600 uppercase text-base leading-normal'>
+                            <th className='py-3 px-6 text-left'>Tên sản phẩm</th>
                             <th className='py-3 px-6 text-left'>Giá</th>
                             <th className='py-3 px-6 text-center'>Số lượng</th>
                             <th className='py-3 px-6 text-center'>Thành tiền</th>
@@ -110,7 +103,7 @@ const FormEditOrder = ({ order, onSubmitUpdate, notification }) => {
                     </thead>
                     <tbody className='text-gray-600 text-sm font-light'>
                         {
-                            listproducts != undefined
+                            (listproducts && listproducts.length)
                                 ? listproducts.map((item, idx) => (<InfProducts key={idx} item={item} />))
                                 : 'không có sản phẩm nào'
                         }
@@ -119,7 +112,7 @@ const FormEditOrder = ({ order, onSubmitUpdate, notification }) => {
                 <div className='text-xl font-semibold text-red-500 p-3 flex'>
                     <h2 className='ml-auto pt-4'>
                         Tổng :
-                        <span className='pl-8'>120000 VNĐ</span>
+                        <span className='pl-8'>.... VNĐ</span>
                     </h2>
                 </div>
             </div>
@@ -129,14 +122,12 @@ const FormEditOrder = ({ order, onSubmitUpdate, notification }) => {
 
 FormEditOrder.propTypes = {
     order: PropTypes.object,
-    onSubmitUpdate: PropTypes.func,
-    notification: PropTypes.object
+    onSubmitUpdate: PropTypes.func
 };
 
 FormEditOrder.defaultProps = {
     order: {},
-    onSubmitUpdate: null,
-    notification: {}
+    onSubmitUpdate: null
 };
 
 export default FormEditOrder;

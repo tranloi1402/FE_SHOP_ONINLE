@@ -14,8 +14,11 @@ const Catergory = ({ listCateTitle1, listCateTitle2 }) => (
                             listCateTitle2.map((item, idx) => (
                                 <li key={idx}>
                                     <Link
-                                        to='#'
-                                        className='text-sm font-normal text-gray-500 text-justify hover:text-yellow-500 transition delay-100'
+                                        to={`/product/category/${item._id}`}
+                                        className='
+                                        text-sm font-normal capitalize
+                                        text-gray-500 text-justify
+                                        hover:text-yellow-500 transition delay-100'
                                     >
                                         {item.name}
                                     </Link>
@@ -34,8 +37,9 @@ const Catergory = ({ listCateTitle1, listCateTitle2 }) => (
                             listCateTitle1.map((item, idx) => (
                                 <li key={idx}>
                                     <Link
-                                        to='#'
-                                        className='text-sm font-normal text-gray-500 text-justify hover:text-yellow-500 transition delay-100'
+                                        to={`/product/category/${item._id}`}
+                                        className='text-sm font-normal text-justify capitalize
+                                        text-gray-500 hover:text-yellow-500 transition delay-100'
                                     >
                                         {item.name}
                                     </Link>

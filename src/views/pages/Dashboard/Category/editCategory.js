@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import Header from '../../../components/Dashboard/header';
 import Sliderbar from '../../../components/Dashboard/Sliderbar';
@@ -19,21 +19,26 @@ const EditCategory = () => {
         status: '',
         title: ''
     });
-
     const onSubmit = () => {
         if (data) {
             // console.log('[[data]]', data);
             dispatch(categoryActions.updateCate(data));
         }
     };
-
     useEffect(() => {
         dispatch(categoryActions.editId(id.id));
     }, [id, dispatch]);
-
     useEffect(() => {
         setData(cateEdit);
     }, [cateEdit]);
+
+    const history = useHistory();
+    useEffect(() => {
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+            history.replace('/login');
+        }
+    }, [history]);
 
     return (
         <div className='Dashboard bg-dashboard'>

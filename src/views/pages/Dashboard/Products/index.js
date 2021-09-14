@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import Header from '../../../components/Dashboard/header';
 import Sliderbar from '../../../components/Dashboard/Sliderbar';
@@ -10,9 +11,8 @@ import { productActions, productSelectors } from '../../../../state/modules/prod
 const Index = () => {
     const [products, setProducts] = useState([]);
     const prodSelectors = useSelector(productSelectors.getAllProducts);
-    console.log('[[ prodSelectors ]]', prodSelectors);
+    // console.log('[[ prodSelectors ]]', prodSelectors);
     // console.log('[[ product ]]', product);
-
     useEffect(() => {
         setProducts(prodSelectors);
     }, [prodSelectors]);
@@ -21,6 +21,14 @@ const Index = () => {
     useEffect(() => {
         dispatch(productActions.getAllProduct());
     }, [dispatch]);
+
+    const history = useHistory();
+    useEffect(() => {
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+            history.replace('/login');
+        }
+    }, [history]);
 
     return (
         <div className='Dashboard bg-dashboard'>

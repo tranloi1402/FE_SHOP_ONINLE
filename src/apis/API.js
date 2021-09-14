@@ -19,7 +19,7 @@ export const postDeleteCateById = async (payload) => {
 };
 
 // Product-API
-export const getAllProduct = () => axios.get(`${URL}/product`);
+export const getAllProduct = (payload) => axios.get(`${URL}/product?keyword=${payload}`);
 
 export const postCreateProduct = async (payload) => {
     await axios.post(`${URL}/createProduct`, payload, {withCredentials: true});
@@ -34,11 +34,26 @@ export const postDeleteProduct = async (payload) => {
     await axios.post(`${URL}/deleteProduct/${payload}`);
 };
 
+// Evaluate-Api
+export const getAllEvaluate = (payload) => axios.get(`${URL}/evaluate/${payload}`);
+export const postCreateEvaluate = (payload) => axios.post(`${URL}/create/evaluate`, payload);
+
 // Orders-API
 export const getAllOrder = () => axios.get(`${URL}/order`);
+
+export const postCreateOrder = async (payload) => {
+    await axios.post(`${URL}/createOrder`, payload, {withCredentials: true});
+};
 
 export const editOrder = (payload) => axios.get(`${URL}/findOrder/${payload}`);
 
 export const postUpdateOrder = async (payload) => {
     await axios.post(`${URL}/updateOrder`, payload);
+};
+
+// Admin Login - API
+export const adminLogin = async (payload) => {
+    const response = await axios.post(`${URL}/adminLogin`, payload);
+    // console.log('data Api:', response);
+    return response;
 };
